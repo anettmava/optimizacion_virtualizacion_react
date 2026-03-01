@@ -7,6 +7,7 @@ const pokemon_inicial = [
     type: "Electric",
     image:
       "https://db.pokemongohub.net/_next/image?url=%2Fimages%2Fofficial%2Ffull%2F405.webp&w=640&q=75",
+    likes: 0,
   },
   {
     id: "giratina",
@@ -14,6 +15,7 @@ const pokemon_inicial = [
     type: "Ghost",
     image:
       "https://db.pokemongohub.net/_next/image?url=%2Fimages%2Fofficial%2Ffull%2F487.webp&w=640&q=75",
+    likes: 0,
   },
   {
     id: "cubone",
@@ -21,6 +23,7 @@ const pokemon_inicial = [
     type: "Ground",
     image:
       "https://db.pokemongohub.net/_next/image?url=%2Fimages%2Fofficial%2Ffull%2F104.webp&w=640&q=75",
+    likes: 0,
   },
 ];
 
@@ -37,6 +40,11 @@ export default function PokemonExercise() {
     setPokemons((prev) => prev.filter((p) => p.id !== id));
   }
 
+  function handleLike(id){
+  setPokemons((prev) => prev.map((p) => p.id == id ? {...p, likes: p.likes +1}:p
+)
+);
+}
   function handleAdd(e) {
     e.preventDefault();
 
@@ -50,6 +58,7 @@ export default function PokemonExercise() {
       name: cleanName,
       type: cleanType,
       image: cleanImage,
+      likes: 0,
     };
 
     setPokemons((prev) => [newPokemon, ...prev]);
@@ -132,7 +141,16 @@ export default function PokemonExercise() {
             </div>
 
             <button onClick={() => handleDelete(p.id)}>Delete</button>
+
+
+            <button onClick={() => handleLike(p.id)}>
+              <div>Likes: {' '+ p.likes}</div> 
+            </button>
+            
+
           </article>
+            
+            
         ))}
       </div>
     </section>
