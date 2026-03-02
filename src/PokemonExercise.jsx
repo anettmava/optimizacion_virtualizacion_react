@@ -41,9 +41,9 @@ export default function PokemonExercise() {
   }
 
   function handleLike(id){
-  setPokemons((prev) => prev.map((p) => p.id == id ? {...p, likes: p.likes +1}:p
-)
-);
+    setPokemons((prev) => prev.map((p) => p.id == id ? {...p, likes: p.likes +1}:p
+  )
+  );
 }
   function handleAdd(e) {
     e.preventDefault();
@@ -68,6 +68,15 @@ export default function PokemonExercise() {
     setImage("");
   }
 
+  const [descending,setDescending] = useState(true);
+  function invertirLista() {
+    if (descending){
+      setPokemons(prevPokemons => [...prevPokemons].sort((a, b) => a.likes - b.likes));
+    } else {
+      setPokemons(prevPokemons => [...prevPokemons].sort((a, b) => b.likes - a.likes));
+    }
+  }
+
   return (
     <section style={{ padding: 16 }}>
       <h2>Pokémon Exercise</h2>
@@ -81,6 +90,12 @@ export default function PokemonExercise() {
             placeholder=""
           />
         </div>
+
+        <button onClick={() =>
+            {setDescending(prev => !prev), invertirLista()}
+            }>
+            Invert list
+        </button>
 
         <div style={{ display: "grid", gap: 6 }}>
           <label>Type</label>
